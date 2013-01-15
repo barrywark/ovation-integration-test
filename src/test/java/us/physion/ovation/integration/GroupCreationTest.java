@@ -19,16 +19,19 @@ import javax.inject.Inject;
 import static org.junit.Assert.fail;
 
 @RunWith(JukitoRunner.class)
-public class GroupCreationTest {
+public class GroupCreationTest
+{
 
     private static final String USER_NAME = "user";
     private static final String EMAIL = "email@email.com";
     private static final char[] PASSWORD = "password".toCharArray();
 
-    public static class Module extends JukitoModule {
+    public static class Module extends JukitoModule
+    {
 
         @Override
-        protected void configureTest() {
+        protected void configureTest()
+        {
             new OvationApiModule().configure(binder());
         }
     }
@@ -37,14 +40,16 @@ public class GroupCreationTest {
     DataStoreCoordinator dsc;
 
     @Before
-    public void create_user() {
+    public void create_user()
+    {
         DataContext ctx = dsc.getContext();
         ctx.addUser(USER_NAME, EMAIL, PASSWORD);
     }
 
     @After
     public void clean_up(CouchDbInstance server,
-                         CouchDbConnector db) {
+                         CouchDbConnector db)
+    {
         server.deleteDatabase(db.path());
     }
 
@@ -53,7 +58,8 @@ public class GroupCreationTest {
      */
     @Test
     @Ignore
-    public void should_create_write_groups(GroupFactory groupFactory) {
+    public void should_create_write_groups(GroupFactory groupFactory)
+    {
         DataContext ctx = dsc.getContext();
         ctx.authenticateUser(USER_NAME, PASSWORD);
 
